@@ -75,12 +75,12 @@ header.top {
 
 /* ---------- tabs ---------- */
 nav.tabs {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px; margin: 14px 0 20px;
 }
 nav.tabs button {
   appearance: none; border: 0; background: transparent; color: var(--text-muted);
-  padding: 10px 4px; font-family: var(--display); font-weight: 500; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 2px; font-family: var(--display); font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
   border-radius: var(--radius-s); cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -329,6 +329,54 @@ nav.tabs button.active { background: var(--bg); color: var(--text); box-shadow: 
 .tt-row input.tt-input { width: 70px; background: var(--bg); border: 1px solid var(--border-strong); color: var(--text); font-family: var(--mono); font-size: 13px; padding: 4px 6px; border-radius: 4px; text-align: right; }
 .tt-row .target { color: var(--text-muted); font-size: 11px; }
 
+/* ---------- nutrition view ---------- */
+.nutr-section-head {
+  font-family: var(--display); font-weight: 600; font-size: 14px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.nutr-intro { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+.macro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.macro-card {
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px;
+}
+.macro-card .mc-label { font-family: var(--mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.macro-card .mc-cal { font-family: var(--display); font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
+.macro-card .mc-cal span { font-size: 13px; color: var(--text-muted); font-family: var(--mono); }
+.macro-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.macro-row:last-child { border-bottom: none; }
+.macro-row .mname { font-size: 13px; font-weight: 600; }
+.macro-row .mval { font-family: var(--mono); font-size: 13px; }
+.macro-row .mval .munit { font-size: 11px; color: var(--text-muted); }
+.macro-row.protein .mval { color: #ff6b6b; }
+.macro-row.carbs   .mval { color: var(--warn); }
+.macro-row.fat     .mval { color: var(--easy); }
+.timing-row {
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-s);
+  padding: 12px 14px; margin-bottom: 8px;
+}
+.timing-row .tr-window { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+.timing-row .tr-focus { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.timing-row .tr-target { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.supp-block { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 10px; }
+.supp-block-head { padding: 10px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.supp-block-head.morning { color: var(--warn); background: rgba(255,180,0,0.06); }
+.supp-block-head.pre     { color: var(--quality); background: rgba(58,134,255,0.06); }
+.supp-block-head.post    { color: var(--easy); background: rgba(6,167,125,0.06); }
+.supp-item { padding: 11px 14px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; }
+.supp-item:last-child { border-bottom: none; }
+.supp-item .sname { font-weight: 700; font-size: 13px; line-height: 1.2; }
+.supp-item .swhy  { font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+.supp-item .sdose { font-family: var(--mono); font-size: 12px; color: var(--text); text-align: right; white-space: nowrap; }
+.deficit-banner {
+  background: linear-gradient(135deg, rgba(230,57,70,0.12), rgba(230,57,70,0.05));
+  border: 1px solid rgba(230,57,70,0.25); border-radius: var(--radius);
+  padding: 14px 16px; margin-bottom: 16px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;
+}
+.deficit-banner .db-val { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--accent); }
+.deficit-banner .db-label { font-family: var(--mono); font-size: 9px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
 /* ---------- generic ---------- */
 h2.section-head { font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; margin: 20px 0 10px; }
 .hint { font-size: 11px; color: var(--text-muted); margin-top: 6px; font-style: italic; }
@@ -404,6 +452,7 @@ h2.section-head { font-family: var(--display); font-weight: 600; font-size: 20px
     <button data-view="week">Week</button>
     <button data-view="plan">Plan</button>
     <button data-view="paces">Paces</button>
+    <button data-view="nutrition">Nutrition</button>
   </nav>
 
   <main id="view"></main>
@@ -1421,6 +1470,115 @@ function renderPaces() {
 }
 
 /* ============================================================
+   VIEW — NUTRITION
+   ============================================================ */
+function renderNutrition() {
+  const TDEE = 3350;
+  const trainCal = 3000, restCal = 2600;
+  const deficit = Math.round(((trainCal * 6) + (restCal * 1)) / 7);
+
+  const trainMacros = { protein:220, carbs:325, fat:90 };
+  const restMacros  = { protein:220, carbs:215, fat:95 };
+
+  function macroCard(label, cals, macros) {
+    return `<div class="macro-card">
+      <div class="mc-label">${label}</div>
+      <div class="mc-cal">${cals}<span> cal</span></div>
+      <div style="margin-top:10px">
+        <div class="macro-row protein"><span class="mname">Protein</span><span class="mval">${macros.protein}<span class="munit">g</span></span></div>
+        <div class="macro-row carbs"><span class="mname">Carbs</span><span class="mval">${macros.carbs}<span class="munit">g</span></span></div>
+        <div class="macro-row fat"><span class="mname">Fat</span><span class="mval">${macros.fat}<span class="munit">g</span></span></div>
+      </div>
+    </div>`;
+  }
+
+  const suppBlocks = [
+    {
+      slot: 'morning', label: '☀️ Morning — Daily Foundation',
+      items: [
+        { name:'Creatine Monohydrate', dose:'5g', why:'Timing irrelevant — consistency is the variable. Phosphocreatine stores, power output, lean mass retention.' },
+        { name:'Beta-Alanine', dose:'1.6g', why:'First of two daily doses. Split to manage paresthesia. Buffers lactic acid — extends threshold and VO2 capacity.' },
+        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'First of two daily doses. Complementary pathway to creatine — power output and body composition.' },
+      ]
+    },
+    {
+      slot: 'pre', label: '⚡ Pre-Workout — 30–45 min before',
+      items: [
+        { name:'L-Citrulline', dose:'6g pure\nor 8g malate', why:'Blood flow, endurance output, reduced soreness. Direct benefit for threshold and interval runs.' },
+        { name:'L-Leucine', dose:'3g', why:'MPS trigger pre-session. Critical in a deficit — signals muscle to build even when calories are low.' },
+        { name:'Beta-Alanine', dose:'1.6g', why:'Second daily dose — stack with pre-workout for convenience.' },
+      ]
+    },
+    {
+      slot: 'post', label: '💪 Post-Workout — within 1 hour',
+      items: [
+        { name:'Protein', dose:'50g', why:'Hits the leucine threshold for MPS. Food first — powder fills gaps when a full meal isn\'t possible.' },
+        { name:'L-Leucine', dose:'3g', why:'Additional dose only if post-workout meal is delayed more than 1 hour. Otherwise the protein covers it.' },
+        { name:'L-Carnitine L-Tartrate', dose:'2g', why:'Take with carbs — insulin improves absorption. Reduces muscle damage, supports fat oxidation. Most valuable on high-volume days.' },
+        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'Second daily dose. Pair with post-workout meal.' },
+      ]
+    },
+  ];
+
+  let html = `
+    <div class="nutr-intro">
+      215 lbs · 6'0" · ~14.5% BF · Age 43 · TDEE ~${TDEE.toLocaleString()} cal · Goal: lean performance
+    </div>
+
+    <div class="deficit-banner">
+      <div><div class="db-val">~${deficit.toLocaleString()}</div><div class="db-label">Avg cal/day</div></div>
+      <div><div class="db-val">~400</div><div class="db-label">Cal deficit</div></div>
+      <div><div class="db-val">0.5–0.75</div><div class="db-label">lbs/wk target</div></div>
+    </div>
+
+    <div class="nutr-section-head">Daily Targets</div>
+    <div class="macro-grid">
+      ${macroCard('Training Days (6×)', trainCal, trainMacros)}
+      ${macroCard('Rest Day (1×, Sun)', restCal, restMacros)}
+    </div>
+    <div class="nutr-intro">
+      Protein stays identical both days — muscle retention in a deficit requires consistent protein, not cycling it. Carbs drop sharply on rest day since glycogen demand is minimal. Fat floor of ~90g protects testosterone at 43 — don't go below it.
+    </div>
+
+    <div class="nutr-section-head">Macro Timing</div>
+    <div class="timing-row">
+      <div class="tr-window">Pre-workout · 1–2 hr before</div>
+      <div class="tr-focus">Carb-forward</div>
+      <div class="tr-target">60–80g carbs · 30–40g protein · low fat</div>
+    </div>
+    <div class="timing-row">
+      <div class="tr-window">Post-workout · within 1 hr</div>
+      <div class="tr-focus">Protein + carb</div>
+      <div class="tr-target">50g protein · 60–80g carbs</div>
+    </div>
+    <div class="timing-row">
+      <div class="tr-window">Remaining meals · 2–3 across the day</div>
+      <div class="tr-focus">Balanced</div>
+      <div class="tr-target">Distribute remaining protein and fat evenly. Keep fat away from peri-workout windows.</div>
+    </div>
+
+    <div class="nutr-section-head">Supplement Protocol</div>
+    ${suppBlocks.map(block => `
+      <div class="supp-block">
+        <div class="supp-block-head ${block.slot}">${block.label}</div>
+        ${block.items.map(s => `
+          <div class="supp-item">
+            <div>
+              <div class="sname">${s.name}</div>
+              <div class="swhy">${s.why}</div>
+            </div>
+            <div class="sdose">${s.dose}</div>
+          </div>`).join('')}
+      </div>`).join('')}
+
+    <div style="margin-top:20px;font-size:11px;color:var(--text-dim);line-height:1.6;padding:12px;background:var(--bg-elev);border-radius:var(--radius-s);border:1px solid var(--border);">
+      Evidence-based recommendations from published research and hybrid athlete protocols. Not personalized medical nutrition advice. Consult a physician or registered dietitian before adding new supplements, especially if on medication.
+    </div>
+  `;
+  return html;
+}
+
+/* ============================================================
    RENDER DISPATCH
    ============================================================ */
 let currentView = 'today';
@@ -1434,6 +1592,7 @@ function renderView() {
   else if (currentView === 'week') el.innerHTML = renderWeek();
   else if (currentView === 'plan') el.innerHTML = renderPlan();
   else if (currentView === 'paces') el.innerHTML = renderPaces();
+  else if (currentView === 'nutrition') el.innerHTML = renderNutrition();
 }
 
 document.querySelectorAll('nav.tabs button').forEach(btn => {
