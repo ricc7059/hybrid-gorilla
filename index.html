@@ -683,6 +683,98 @@ function saveTT(weekNum, val) {
 }
 
 /* ============================================================
+   ACTION REGISTRY — fixes onclick serialization issue
+   ============================================================ */
+const _acts = {};
+let _actIdx = 0;
+function regAction(fn) {
+  const k = 'act' + (_actIdx++);
+  _acts[k] = fn;
+  return k;
+}
+window.triggerAction = function(k) { if (_acts[k]) _acts[k](); };
+
+/* ============================================================
+   GYM MODE (home / travel-best / travel-worst)
+   ============================================================ */
+let gymMode = 'home';
+window.setGymMode = function(mode) { gymMode = mode; renderView(); };
+
+/* ============================================================
+   TRAVEL EXERCISE SETS
+   ============================================================ */
+const TRAVEL = {
+  best: {
+    note: 'Best Case — cable stack + adjustable DBs to ~60 lbs',
+    upperA: [
+      { ord:'A1', name:'DB Bench Press (flat)', sets:3, reps:'8–12 (Ph1–2) / 6–10 (Ph3+)', note:'Phase progression same as home. Up to 60lb DBs available.' },
+      { ord:'A2', name:'DB Bent-Over Row', sets:3, reps:'6–10', note:'Sub for pull-up. Hinge at hip, squeeze mid-back. Both arms or alternating.' },
+      { ord:'B1', name:'DB Single-Arm Shoulder Press (standing)', sets:2, reps:'10–12/arm', note:'Sub for landmine press. Standing, brace core. Similar pressing angle.' },
+      { ord:'B2', name:'DB Single-Arm Row (elbow on knee)', sets:2, reps:'10–12/arm', note:'Sub for landmine row. Full stretch at bottom, pull to hip.' },
+      { ord:'C1', name:'DB Lateral Raise (seated or standing)', sets:4, reps:'12–15', note:'Lead with elbow. Full stretch at bottom. Phase 2+: 5 sets.' },
+      { ord:'C2', name:'DB Rear Delt Fly (seated forward hinge)', sets:3, reps:'15–20', note:'Hinge forward 45°. Arms arc out to sides. Squeeze rear delts at peak.' },
+      { ord:'D1', name:'DB Tricep Kickback or Overhead Extension', sets:2, reps:'10–15', note:'Kickback: hinge at hip, extend fully. Overhead: both arms, long-head stretch.' },
+      { ord:'D2', name:'DB Curl (standing)', sets:2, reps:'10–12', note:'Supinate through the curl. Alternate incline/standing each session.' },
+    ],
+    lower: [
+      { ord:'A1', name:'DB Goblet Squat', sets:3, reps:'8–12', note:'Hold DB at chest. Upright torso. Sub for safety bar squat.' },
+      { ord:'A2', name:'Nordic Curl (modified — floor based)', sets:3, reps:'4–6 eccentric', note:'Anchor feet under bed/heavy bag. 5-count descent, hands catch. Phase 1–2: modified. Phase 3+: fuller range.' },
+      { ord:'B1', name:'DB Romanian Deadlift', sets:3, reps:'8–10', note:'Full stretch at bottom. Use heaviest available DBs — up to 60lb.' },
+      { ord:'B2', name:'Superman Hold / Back Extension (floor)', sets:3, reps:'10–15', note:'Lie face down, lift chest and legs simultaneously. Hold 2 sec at top.' },
+      { ord:'C1', name:'DB Split Squat (rear foot elevated)', sets:2, reps:'8–10/leg', note:'Same as home version. Use DBs for load.' },
+      { ord:'D1', name:'DB Single-Leg Calf Raise (hold DB)', sets:3, reps:'10–15', note:'Stand on edge of step if available. Full range.' },
+      { ord:'D2', name:'DB Hip Thrust (floor)', sets:2, reps:'10–15', note:'Upper back on floor, DB on hips. Drive up to full extension.' },
+      { ord:'E1', name:'Side-Lying Hip Abduction', sets:2, reps:'15–20/side', note:'Hip abductor sub for Copenhagen plank. Slow and controlled.' },
+      { ord:'F1', name:'Rotational Chop (DB, standing)', sets:2, reps:'8–10/side', note:'Sub for landmine rotation. Hold one DB, rotate from hip. Control the return.' },
+    ],
+    upperB: [
+      { ord:'A1', name:'DB Overhead Press (standing, strict)', sets:3, reps:'6–10', note:'No leg drive. Full lockout.' },
+      { ord:'A2', name:'DB Single-Arm Row or Towel Row', sets:3, reps:'6–10/arm', note:'Towel row: loop towel around door handle, lean back, row.' },
+      { ord:'B1', name:'DB Floor Press', sets:2, reps:'8–12', note:'Sub for dip. Lie on floor, press to full extension.' },
+      { ord:'B2', name:'DB Single-Arm Row (half-kneeling)', sets:2, reps:'10–12/arm', note:'Same as cable row — different stimulus from A2.' },
+      { ord:'C1', name:'DB Lateral Raise (lean-away, door frame)', sets:4, reps:'12–15', note:'Hold door frame with free hand, lean away, raise with cable-side arm. Phase 2+: 5 sets.' },
+      { ord:'C2', name:'DB Rear Delt Fly', sets:3, reps:'15–20', note:'Forward hinge, arms arc wide. Full range.' },
+      { ord:'D1', name:'DB Curl (preacher on knee or standing)', sets:2, reps:'10–12', note:'Superset with D2.' },
+      { ord:'D2', name:'DB Overhead Tricep Extension', sets:2, reps:'10–12', note:'Superset with D1.' },
+    ],
+  },
+  worst: {
+    note: 'Worst Case — fixed DBs max ~30 lbs + treadmill only',
+    upperA: [
+      { ord:'A1', name:'DB Bench Press (flat, higher reps)', sets:3, reps:'12–20', note:'Lighter DBs — increase reps to maintain stimulus. Slow eccentric (3 sec down).' },
+      { ord:'A2', name:'Doorframe Row or Towel Row', sets:3, reps:'8–12', note:'Loop towel around door handle. Feet against door, lean back, row. Best pull sub with no equipment.' },
+      { ord:'B1', name:'Archer Push-Up', sets:2, reps:'8–10/side', note:'Wide push-up, shift weight to one arm at a time. Upper chest + anterior delt. Sub for landmine press.' },
+      { ord:'B2', name:'DB Single-Arm Row (elbow on knee)', sets:2, reps:'12–15/arm', note:'Lighter DBs, higher reps, slow tempo. Full range.' },
+      { ord:'C1', name:'DB Lateral Raise (lean-away, door frame)', sets:4, reps:'15–20', note:'Door frame lean — replicates cable angle. Slow and controlled at lighter load. Phase 2+: 5 sets.' },
+      { ord:'C2', name:'DB Rear Delt Fly or Prone Y-Raise (floor)', sets:3, reps:'15–20', note:'Prone Y-raise: lie face down, raise arms to Y shape. No weight needed — pure rear delt.' },
+      { ord:'D1', name:'Diamond Push-Up or Tricep Dip (chair)', sets:2, reps:'10–15', note:'Diamond: hands together under chest. Chair dip: hands on chair edge, dip down.' },
+      { ord:'D2', name:'DB Curl (light, high rep)', sets:2, reps:'15–20', note:'Slow tempo — 2 sec up, 2 sec down. Makes lighter DBs challenging.' },
+    ],
+    lower: [
+      { ord:'A1', name:'Bulgarian Split Squat (bodyweight or light DB)', sets:3, reps:'10–12/leg', note:'Rear foot on bed or chair. Single-leg intensity compensates for no barbell.' },
+      { ord:'A2', name:'Nordic Curl (modified — floor based)', sets:3, reps:'4–6 eccentric', note:'Anchor feet, 5-count descent, hands catch. Same as best case.' },
+      { ord:'B1', name:'DB Single-Leg RDL (light DB)', sets:3, reps:'10–12/leg', note:'One DB in opposite hand to working leg. Balance and hamstring — higher reps compensate for lighter load.' },
+      { ord:'B2', name:'Superman Hold (floor)', sets:3, reps:'12–15', note:'Face down, lift chest and legs. Hold 2 sec. No equipment needed.' },
+      { ord:'C1', name:'Lateral Lunge (bodyweight)', sets:2, reps:'10/leg', note:'Wide step to side, sit into the hip. Keep opposite leg straight. Running stability.' },
+      { ord:'D1', name:'Single-Leg Calf Raise (bodyweight)', sets:3, reps:'15–20', note:'Use wall for balance. Full range — deep stretch at bottom.' },
+      { ord:'D2', name:'Glute Bridge (bodyweight, single-leg)', sets:2, reps:'12–15/leg', note:'Single-leg bridge on floor. Drive through heel, squeeze glute at top.' },
+      { ord:'E1', name:'Side-Lying Hip Abduction', sets:2, reps:'15–20/side', note:'Slow and controlled. Abductor strength for running stride.' },
+      { ord:'F1', name:'Standing Rotation (bodyweight or light DB)', sets:2, reps:'10/side', note:'Sub for landmine rotation. Rotate through hips, control the return.' },
+    ],
+    upperB: [
+      { ord:'A1', name:'DB Push Press (light DB, higher reps)', sets:3, reps:'12–15', note:'Slight leg drive OK since load is lighter. Overhead strength maintained.' },
+      { ord:'A2', name:'Doorframe Row or Towel Row', sets:3, reps:'10–15', note:'Same as Upper A. Best vertical pull sub with no bar.' },
+      { ord:'B1', name:'Push-Up to Failure', sets:2, reps:'max', note:'Chest to floor, full lockout. When push-ups are all you have, do them right.' },
+      { ord:'B2', name:'DB Single-Arm Row (half-kneeling)', sets:2, reps:'12–15/arm', note:'Lighter load, higher reps, slow tempo.' },
+      { ord:'C1', name:'DB Lateral Raise (seated, slow tempo)', sets:4, reps:'15–20', note:'2 sec up, 2 sec down. Lighter load + tempo = same stimulus. Phase 2+: 5 sets.' },
+      { ord:'C2', name:'Prone Y-Raise (floor)', sets:3, reps:'15–20', note:'Face down, arms in Y. Pure rear delt. No weight needed.' },
+      { ord:'D1', name:'DB Curl (light, slow)', sets:2, reps:'15–20', note:'Tempo curl — squeeze hard at top.' },
+      { ord:'D2', name:'DB Overhead Tricep Extension (light)', sets:2, reps:'15–20', note:'Light load, full ROM, slow eccentric.' },
+    ],
+  }
+};
+
+/* ============================================================
    MODAL
    ============================================================ */
 function openModal(html) {
@@ -727,7 +819,19 @@ function renderExercises(exercises, phase, isMaintenance) {
 }
 
 function liftModal(liftKey, weekNum, phase) {
-  const session = LIFT[liftKey];
+  // Resolve exercise set based on gym mode
+  let session, travelNote = '';
+  if (gymMode === 'home' || liftKey === 'conditioning') {
+    session = LIFT[liftKey];
+  } else if (gymMode === 'travel-best') {
+    const tSet = TRAVEL.best[liftKey];
+    session = { ...LIFT[liftKey], exercises: tSet || LIFT[liftKey].exercises };
+    travelNote = `<div class="phase-note" style="border-color:rgba(255,180,0,0.3);background:rgba(255,180,0,0.06)"><strong style="color:var(--warn);">✈ Travel Mode — Best Case</strong><br>${TRAVEL.best.note}</div>`;
+  } else {
+    const tSet = TRAVEL.worst[liftKey];
+    session = { ...LIFT[liftKey], exercises: tSet || LIFT[liftKey].exercises };
+    travelNote = `<div class="phase-note" style="border-color:rgba(255,180,0,0.3);background:rgba(255,180,0,0.06)"><strong style="color:var(--warn);">✈ Travel Mode — Worst Case</strong><br>${TRAVEL.worst.note}</div>`;
+  }
   if (!session) return;
   const isMaintenance = phase.id >= 4 && liftKey !== 'conditioning';
   const phaseBench = phase.id;
@@ -769,6 +873,7 @@ function liftModal(liftKey, weekNum, phase) {
       </div>
       <button class="close" onclick="closeModal()">✕</button>
     </div>
+    ${travelNote}
     ${phaseNote}
     ${isMaintenance ? '<div class="phase-note"><strong>Maintenance Phase</strong> · Compounds only, sets reduced. Keep intensity — quality over volume.</div>' : ''}
     ${renderExercises(session.exercises, phaseBench, isMaintenance)}
@@ -855,6 +960,15 @@ function renderToday() {
       <span class="pill">Phase ${phase.id}: ${phase.name}</span>
     </div>
   `;
+
+  // Gym mode toggle — show on lift days
+  if (['upperA','upperB','lower','conditioning'].includes(dayType)) {
+    html += `<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+      <button class="tv-btn${gymMode==='home'?' tv-active':''}" onclick="setGymMode('home')">🏠 Home</button>
+      <button class="tv-btn${gymMode==='travel-best'?' tv-active':''}" onclick="setGymMode('travel-best')">✈ Travel Best</button>
+      <button class="tv-btn${gymMode==='travel-worst'?' tv-active':''}" onclick="setGymMode('travel-worst')">✈ Travel Worst</button>
+    </div>`;
+  }
 
   // Build today's sessions
   const sessions = buildDaySessions(dow, dayType, phase, weekNum);
@@ -965,8 +1079,12 @@ function buildDaySessions(dow, dayType, phase, weekNum) {
 }
 
 function renderSessionCard(s, weekNum, dow) {
-  const doneKey = `${weekNum}-${dow}-${s.key}`;
   const done = getCompletion(weekNum, dow + '-' + s.key);
+  let btnHtml = '';
+  if (s.action) {
+    const aKey = regAction(s.action);
+    btnHtml = `<button class="open" onclick="triggerAction('${aKey}')">View Session →</button>`;
+  }
 
   return `<div class="session ${s.type}${done ? ' done' : ''}">
     <div class="row1">
@@ -975,7 +1093,7 @@ function renderSessionCard(s, weekNum, dow) {
     <div class="title">${s.title}</div>
     <div class="meta">${s.meta}</div>
     ${s.detail ? `<div class="meta mono" style="margin-top:8px;font-size:11px;">${s.detail}</div>` : ''}
-    ${s.action ? `<button class="open" onclick="(${s.action.toString()})()">View Session →</button>` : ''}
+    ${btnHtml}
     <div class="check">
       <label>
         <input type="checkbox" ${done ? 'checked' : ''}
@@ -1152,6 +1270,9 @@ function renderPaces() {
 let currentView = 'today';
 
 function renderView() {
+  // Reset action registry on every render
+  _actIdx = 0;
+  for (const k in _acts) delete _acts[k];
   const el = document.getElementById('view');
   if (currentView === 'today') el.innerHTML = renderToday();
   else if (currentView === 'week') el.innerHTML = renderWeek();
