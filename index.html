@@ -1102,6 +1102,57 @@ function renderSessionCard(s, weekNum, dow) {
 }
 
 /* ============================================================
+   DAY PREVIEW MODAL
+   ============================================================ */
+window.dayPreviewModal = function(weekNum, dayOffset) {
+  const wkStart = weekStartDate(weekNum);
+  const d = new Date(wkStart);
+  d.setDate(d.getDate() + dayOffset);
+  const dow = d.getDay();
+  const phase = currentPhase(weekNum);
+  const dayType = getDayType(dow, phase);
+  const isDeload = [8,16,24,32].includes(weekNum);
+  const sessions = buildDaySessions(dow, dayType, phase, weekNum);
+
+  let sessionsHtml = sessions.map(s => {
+    let btnHtml = '';
+    if (s.action) {
+      const aKey = regAction(s.action);
+      btnHtml = `<button class="open" style="margin-top:10px" onclick="triggerAction('${aKey}')">View Session →</button>`;
+    }
+    return `<div class="session ${s.type}" style="margin-bottom:10px">
+      <span class="label">${s.label}</span>
+      <div class="title">${s.title}</div>
+      <div class="meta">${s.meta}</div>
+      ${s.detail ? `<div class="meta mono" style="margin-top:6px;font-size:11px">${s.detail}</div>` : ''}
+      ${btnHtml}
+    </div>`;
+  }).join('');
+
+  const html = `
+    <div class="modal-head">
+      <div>
+        <h2>${dowFull(d).toUpperCase()}</h2>
+        <div class="sub">${formatDate(d)} · Week ${weekNum} · Phase ${phase.id}: ${phase.name}</div>
+      </div>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    ${isDeload ? '<div class="phase-note"><strong>DELOAD WEEK</strong> · Sets ÷2, loads maintained, RIR 3.</div>' : ''}
+    ${sessionsHtml}
+  `;
+  openModal(html);
+};
+
+window.navigateToWeek = function(wk) {
+  weekViewWeek = wk;
+  currentView = 'week';
+  document.querySelectorAll('nav.tabs button').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === 'week');
+  });
+  renderView();
+};
+
+/* ============================================================
    VIEW — WEEK
    ============================================================ */
 let weekViewWeek = null;
@@ -1131,7 +1182,7 @@ function renderWeek() {
     const isToday = d.toDateString() === today.toDateString();
     const label = getDayLabel(dayType, phase);
 
-    html += `<div class="week-card${isToday ? ' today' : ''}" onclick="weekViewWeek=${wk};renderView()">
+    html += `<div class="week-card${isToday ? ' today' : ''}" onclick="dayPreviewModal(${wk}, ${i})" style="cursor:pointer">
       <div class="dow-box">${dowName(d)}<span class="num">${d.getDate()}</span></div>
       <div class="content">
         <div class="title">${label.title}</div>
@@ -1186,13 +1237,13 @@ function renderPlan() {
                        wk <= 32 ? (wk === 32 ? 'DELOAD' : 'RIR 0–1') : 'RIR 0–1';
           const ttWeeks = {8:'TT: ~20:00–20:30', 16:'TT: ~18:45–19:15', 23:'TT: ~18:30', 31:'TT: ~18:10–18:25', 36:'RACE: Sub-18:00'};
           const wsub = ttWeeks[wk] ? `<b>${ttWeeks[wk]}</b>` : (isDeload ? '<b>DELOAD</b>' : '');
-          return `<div class="plan-week${isCurrent2 ? ' current' : ''}">
+          return `<div class="plan-week${isCurrent2 ? ' current' : ''}" onclick="navigateToWeek(${wk})" style="cursor:pointer">
             <div class="wnum">Wk ${wk}</div>
             <div class="wbody">
               <div class="wtitle">${weekStartDate(wk).toLocaleDateString('en-US', {month:'short', day:'numeric'})}</div>
               ${wsub ? `<div class="wsub">${wsub}</div>` : ''}
             </div>
-            <div class="wrir">${rir}</div>
+            <div class="wrir">${rir} ›</div>
           </div>`;
         }).join('')}
       </div>
