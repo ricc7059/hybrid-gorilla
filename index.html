@@ -1069,6 +1069,13 @@ function buildDaySessions(dow, dayType, phase, weekNum) {
       meta:'Chest · Back · Lateral Delt · Arms · ~50 min',
       action: () => liftModal('upperA', weekNum, phase)
     });
+    sessions.push({
+      type:'easy', key:'easy-run',
+      label:'Run · Easy',
+      title:'Easy Run',
+      meta:'30–45 min · 7.7–8.4 mph · conversational pace',
+      detail: RUNNING.easy.detail
+    });
   }
   if (dayType === 'upperB') {
     sessions.push({
@@ -1077,6 +1084,13 @@ function buildDaySessions(dow, dayType, phase, weekNum) {
       title:'Upper B',
       meta:'Shoulders · Delt · Back · Arms · ~50 min',
       action: () => liftModal('upperB', weekNum, phase)
+    });
+    sessions.push({
+      type:'easy', key:'easy-run',
+      label:'Run · Easy',
+      title:'Easy Run',
+      meta:'30–45 min · 7.7–8.4 mph · conversational pace',
+      detail: RUNNING.easy.detail
     });
   }
   if (dayType === 'lower') {
@@ -1087,6 +1101,13 @@ function buildDaySessions(dow, dayType, phase, weekNum) {
       meta:'Posterior Chain · Nordic · Landmine Rotation · ~50 min',
       action: () => liftModal('lower', weekNum, phase)
     });
+    sessions.push({
+      type:'easy', key:'easy-run',
+      label:'Run · Easy',
+      title:'Easy Run',
+      meta:'30–45 min · 7.7–8.4 mph · conversational pace',
+      detail: RUNNING.easy.detail
+    });
   }
   if (dayType === 'conditioning') {
     sessions.push({
@@ -1095,6 +1116,13 @@ function buildDaySessions(dow, dayType, phase, weekNum) {
       title:'Full-Body Conditioning',
       meta:'Burpee Anchor · Swimmer\'s Curl · Landmine · ~35–40 min',
       action: () => liftModal('conditioning', weekNum, phase)
+    });
+    sessions.push({
+      type:'easy', key:'easy-run',
+      label:'Run · Easy',
+      title:'Easy Run',
+      meta:'30–45 min · 7.7–8.4 mph · conversational pace',
+      detail: RUNNING.easy.detail
     });
   }
   if (dayType === 'quality') {
@@ -1277,13 +1305,13 @@ function renderWeek() {
 
 function getDayLabel(dayType, phase) {
   const labels = {
-    upperA: { title:'Upper A', sub:'Chest · Back · Delts · Arms' },
-    upperB: { title:'Upper B', sub:'OHP · Delts · Back · Arms (Ph 1–2)' },
-    lower: { title:'Lower', sub:'Squat · Hinge · Nordic · Landmine Rotation' },
-    conditioning: { title:'Conditioning', sub:'Burpee · Swimmer\'s Curl · Landmine (Ph 3–5)' },
-    quality: { title:'Quality Run', sub: phase.id <= 2 ? 'Threshold + VO2' : phase.id <= 3 ? 'Race-Pace Volume' : '5K Specific' },
-    long: { title:'Long Run', sub: phase.id <= 2 ? 'Aerobic Base' : phase.id <= 3 ? 'Steady-State' : 'Peak Volume' },
-    rest: { title:'Rest / Thunder 45', sub:'Active recovery · optional delt finisher' },
+    upperA:       { title:'Upper A + Easy Run',       sub:'Chest · Back · Delts · Arms + 30–45 min easy' },
+    upperB:       { title:'Upper B + Easy Run',       sub:'OHP · Delts · Back · Arms + 30–45 min easy' },
+    lower:        { title:'Lower + Easy Run',         sub:'Squat · Hinge · Nordic · Landmine + 30–45 min easy' },
+    conditioning: { title:'Conditioning + Easy Run',  sub:'Burpee · Landmine · Carries + 30–45 min easy' },
+    quality:      { title:'Quality Run',              sub: phase.id <= 2 ? 'Threshold + VO2 · Delt Finisher' : phase.id <= 3 ? 'Race-Pace Volume · Delt Finisher' : '5K Specific · Delt Finisher' },
+    long:         { title:'Long Run',                 sub: phase.id <= 2 ? 'Aerobic Base · Delt Finisher (opt)' : phase.id <= 3 ? 'Steady-State · Delt Finisher (opt)' : 'Peak Volume · Delt Finisher (opt)' },
+    rest:         { title:'Rest / Thunder 45',        sub:'Active recovery · Delt Finisher' },
   };
   return labels[dayType] || { title:'Rest', sub:'' };
 }
