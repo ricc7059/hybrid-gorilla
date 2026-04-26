@@ -879,7 +879,7 @@ function liftModal(liftKey, weekNum, phase) {
     ${renderExercises(session.exercises, phaseBench, isMaintenance)}
     <div class="notes-box">
       <label>Session Notes — Week ${weekNum}</label>
-      <textarea placeholder="Load, PRs, how it felt…" onchange="saveNotes('${notesKey}', this.value)">${savedNotes}</textarea>
+      <textarea placeholder="Load, PRs, how it felt…" oninput="saveNotes('${notesKey}', this.value)">${savedNotes}</textarea>
     </div>
     <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">
       <strong style="color:var(--warn);">Delt Finisher reminder:</strong> Tue / Thu / Sun (+ optional Sat) · 10–12 min · See delt finisher card.
@@ -959,16 +959,13 @@ function renderToday() {
     <div class="day-subnote">
       <span class="pill">Phase ${phase.id}: ${phase.name}</span>
     </div>
-  `;
-
-  // Gym mode toggle — show on lift days
-  if (['upperA','upperB','lower','conditioning'].includes(dayType)) {
-    html += `<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;">Gym:</span>
       <button class="tv-btn${gymMode==='home'?' tv-active':''}" onclick="setGymMode('home')">🏠 Home</button>
       <button class="tv-btn${gymMode==='travel-best'?' tv-active':''}" onclick="setGymMode('travel-best')">✈ Travel Best</button>
       <button class="tv-btn${gymMode==='travel-worst'?' tv-active':''}" onclick="setGymMode('travel-worst')">✈ Travel Worst</button>
-    </div>`;
-  }
+    </div>
+  `;
 
   // Build today's sessions
   const sessions = buildDaySessions(dow, dayType, phase, weekNum);
