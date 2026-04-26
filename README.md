@@ -191,17 +191,26 @@ VO2max 52 → VDOT ~53 → predicted 5K ~18:15. Gap between current 21:00 and pr
 | D2 | Overhead DB Tricep Extension | 2 × 10–12 | Superset w/ D1 |
 
 ### Conditioning Day — Friday (Phases 3–5)
-*Full-Body · Burpee Anchor · Landmine Power · Metabolic · ~35–40 min*
+*Full-Body · Burpee EMOM · Landmine Power · Trap Bar Farmer Hold · 32–40 min*
 
-Replaces Upper B when lifting drops to 2 dedicated days. Maintains athletic conditioning and complements the running priority of the back half of the program.
+Replaces Upper B when lifting drops to 2 dedicated days. Anchored by a burpee EMOM at 10 reps/minute — Steve's established pace from 7,500 burpees over 30 days in November 2025. The progression variable is not reps per minute (locked at 10) but **duration** (Phase 3→4) and **vest load** (Phase 4+).
 
-| # | Exercise | Notes |
-|---|----------|-------|
-| A | Burpee EMOM or Timed Sets | Primary conditioning anchor; volume progresses Ph 3–5 |
-| B | Swimmer's Curl (DB) | Full shoulder arc, anterior chain, compound curl |
-| C | Landmine Squat-to-Press | Full-body power; hip drive transfers through core to press |
-| D | Landmine Core Rotation | Consistent with Lower day F1 — rotational power block |
-| E | Farmer Carry or Core Finisher | Session cap; grip + gait + mental toughness |
+| Block | Exercise | Phase 3 | Phase 4 | Phase 5 |
+|-------|----------|---------|---------|---------|
+| WU | Easy jog or jump rope | 3 min | 3 min | 2 min |
+| A | Burpee EMOM (10/min) | 10 min · BW | 15 min · vest 15–20 lbs | 10 min · Ph4 vest load |
+| B1 | Landmine Squat-to-Press | 3×8/arm | 3×10/arm circuit | 2×8/arm |
+| B2 | Swimmer's Curl (DB) | 3×12 | 3×15 circuit | 2×12 |
+| B3 | Landmine Core Rotation | 3×10/side | 3×12/side circuit | 2×10/side |
+| C | Trap Bar Farmer Hold | 3×45s · rest 90s | 4×45s · rest 75s | 2×45s · rest 90s |
+
+**B-block format:** Phase 4 runs B1→B2→B3 as a circuit with 45s rest between rounds. Phases 3 and 5 run straight sets with 90s rest between exercises.
+
+**Key programming notes:**
+- 10 reps/min is locked — duration and vest are the only progression levers
+- Weighted vest introduced in Phase 4 only — Phase 3 cements the movement pattern first
+- Trap bar farmer hold (not carry) — standing isometric, grip + core + postural endurance
+- Saturday long run is the next morning — keep vest load honest in Phase 4 peak weeks
 
 ---
 

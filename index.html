@@ -480,16 +480,55 @@ const LIFT = {
 
   conditioning: {
     name: 'Conditioning',
-    focus: 'Full-Body · Burpee Anchor · Landmine Power · Metabolic',
-    duration: '35–40 min',
+    focus: 'Full-Body · Burpee EMOM · Landmine Power · Farmer Hold',
+    duration: '32–40 min',
     phases: '3–5 (replaces Upper B on Friday)',
-    note: 'Coming in Phase 3 — full session design in progress.',
     exercises: [
-      { ord:'A', name:'Burpee EMOM or Timed Sets', sets:null, reps:'TBD', note:'Primary conditioning anchor. Volume and structure progresses across Phases 3–5.' },
-      { ord:'B', name:'Swimmer\'s Curl (DB)', sets:null, reps:'TBD', note:'Full shoulder arc. Compound curl with anterior chain involvement.' },
-      { ord:'C', name:'Landmine Squat-to-Press', sets:null, reps:'TBD', note:'Full-body power. Hip drive transfers through core to press.' },
-      { ord:'D', name:'Landmine Core Rotation', sets:null, reps:'TBD', note:'Rotational power — consistent with Lower day F1 progression.' },
-      { ord:'E', name:'Core / Carry Finisher', sets:null, reps:'TBD', note:'Farmer carry or plank variation. Session cap.' },
+      {
+        ord:'WU',
+        name:'Warm-Up — Easy Jog or Jump Rope',
+        sets:1,
+        reps:'2–3 min',
+        note:'Phase 5: 2 min. Phases 3–4: 3 min. Easy pace — just elevate the heart rate before the EMOM.'
+      },
+      {
+        ord:'A',
+        name:'Burpee EMOM — 10 reps/min',
+        sets:null,
+        reps:'Ph3: 10 min (100 total) · Ph4: 15 min (150 total) · Ph5: 10 min (100 total)',
+        note:'10 reps/minute is locked throughout all phases — do not chase more per minute. Levers are duration (Ph3→4) and vest load (Ph4+). Phase 3: bodyweight. Phase 4: weighted vest 15–20 lbs, add load across phase weeks. Phase 5: same vest load as Phase 4 peak. If you cannot finish 10 clean reps before the minute resets, rest that minute and resume — form over pace.',
+        landmine: false
+      },
+      {
+        ord:'B1',
+        name:'Landmine Squat-to-Press (single-arm)',
+        sets:3,
+        reps:'8–10/arm (Ph3) · 10/arm (Ph4) · 8/arm (Ph5)',
+        note:'Full-body power. Load the hips in the squat, transfer force through the core into the press. Single-arm keeps rotational demand high. Phase 4: circuit format — rotate B1→B2→B3 with 45s rest between rounds. Phase 3+5: straight sets, rest 90s.',
+        landmine: true
+      },
+      {
+        ord:'B2',
+        name:'Swimmer\'s Curl (DB)',
+        sets:3,
+        reps:'12 (Ph3+5) · 15 (Ph4)',
+        note:'Full shoulder arc — start with palms facing back, curl through supination, finish overhead with bicep squeeze. Anterior chain and shoulder health. Keep momentum out — controlled throughout. Phase 4: circuit with B1 and B3, 45s rest.'
+      },
+      {
+        ord:'B3',
+        name:'Landmine Core Rotation',
+        sets:3,
+        reps:'10/side (Ph3+5) · 12/side (Ph4)',
+        note:'Rotational power — consistent with Lower day F1. Brace core, rotate through hips not just arms. Control the return. Phase 4: circuit with B1 and B2, 45s rest between rounds.',
+        landmine: true
+      },
+      {
+        ord:'C',
+        name:'Trap Bar Farmer Hold',
+        sets:3,
+        reps:'45s hold · rest 90s (Ph3) · 4×45s · rest 75s (Ph4) · 2×45s · rest 90s (Ph5)',
+        note:'Standing isometric hold — grip, core, and postural endurance. Load heavy enough that 45 seconds is genuinely challenging but form holds. Shoulders packed, chest tall, no forward lean. Saturday long run is tomorrow — keep load honest in Phase 4 peak weeks.'
+      },
     ]
   }
 };
@@ -706,7 +745,17 @@ function liftModal(liftKey, weekNum, phase) {
     phaseNote = `<div class="phase-note"><strong>F1 — Landmine Rotation this phase:</strong> ${rotNote}</div>`;
   }
   if (liftKey === 'conditioning') {
-    phaseNote = `<div class="phase-note"><strong>Conditioning Day</strong> · Full session design coming in v2.0 final build. Burpee anchor + Swimmer\'s Curl + Landmine work + Carry finisher.</div>`;
+    const cPhase = phase.id;
+    const emomMin = cPhase === 4 ? '15 min · 150 reps' : '10 min · 100 reps';
+    const vest = cPhase === 3 ? 'Bodyweight' : cPhase === 4 ? 'Weighted vest · 15–20 lbs, progressive' : 'Weighted vest · Phase 4 peak load';
+    const duration = cPhase === 3 ? '~35 min' : cPhase === 4 ? '~40 min' : '~32 min';
+    const feel = cPhase === 3 ? 'Power quality + conditioning foundation' : cPhase === 4 ? 'Peak metabolic output — you should be gassed' : 'Volume reduced, intensity maintained — arrive at race week fresh';
+    phaseNote = `<div class="phase-note">
+      <strong>Phase ${cPhase} Conditioning · ${duration}</strong><br>
+      ${feel}<br>
+      <strong>Burpee EMOM:</strong> ${emomMin} · ${vest}<br>
+      <strong>B-block format:</strong> ${cPhase === 4 ? 'Circuit — B1→B2→B3, 45s rest between rounds' : 'Straight sets — rest 90s between exercises'}
+    </div>`;
   }
 
   const notesKey = `lift-${liftKey}-w${weekNum}`;
