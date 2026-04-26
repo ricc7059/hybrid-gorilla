@@ -192,6 +192,40 @@ nav.tabs button.active { background: var(--bg); color: var(--text); box-shadow: 
 .exercise .sets { font-family: var(--mono); font-size: 13px; color: var(--text); text-align: right; white-space: nowrap; }
 .exercise .sets .reps { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
+/* per-exercise tracking row */
+.ex-track {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.ex-weight-wrap {
+  display: flex; align-items: center; gap: 6px; flex: 1; min-width: 120px;
+}
+.ex-weight-wrap label {
+  font-family: var(--mono); font-size: 10px; color: var(--text-muted);
+  letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+}
+.ex-weight-input {
+  width: 70px; background: var(--bg); border: 1px solid var(--border-strong);
+  color: var(--text); font-family: var(--mono); font-size: 13px;
+  padding: 5px 8px; border-radius: 6px; text-align: right;
+  -webkit-appearance: none;
+}
+.ex-weight-input:focus { outline: none; border-color: var(--accent); }
+.ex-weight-unit {
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
+}
+.ex-done-wrap {
+  display: flex; align-items: center; gap: 6px;
+}
+.ex-done-wrap label {
+  font-size: 11px; color: var(--text-muted); display: flex; align-items: center;
+  gap: 6px; cursor: pointer; white-space: nowrap;
+}
+.ex-done-wrap input[type="checkbox"] {
+  width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0;
+}
+
 .notes-box {
   margin-top: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 10px;
 }
@@ -673,6 +707,29 @@ function saveNotes(key, val) {
   d[`notes-${key}`] = val;
   save(d);
 }
+// Expose globally so modal inline handlers can call them
+window.saveNotes = saveNotes;
+
+// Per-exercise tracking: weight + done checkbox
+function exKey(weekNum, liftKey, mode, ord) {
+  return `ex-${weekNum}-${liftKey}-${mode}-${ord}`;
+}
+function getExWeight(weekNum, liftKey, mode, ord) {
+  return load()[exKey(weekNum, liftKey, mode, ord) + '-w'] || '';
+}
+function getExDone(weekNum, liftKey, mode, ord) {
+  return !!(load()[exKey(weekNum, liftKey, mode, ord) + '-d']);
+}
+window.saveExWeight = function(weekNum, liftKey, mode, ord, val) {
+  const d = load();
+  d[exKey(weekNum, liftKey, mode, ord) + '-w'] = val;
+  save(d);
+};
+window.saveExDone = function(weekNum, liftKey, mode, ord, checked) {
+  const d = load();
+  d[exKey(weekNum, liftKey, mode, ord) + '-d'] = checked;
+  save(d);
+};
 function getTT(weekNum) {
   return load()[`tt-${weekNum}`] || '';
 }
@@ -791,7 +848,7 @@ document.getElementById('modal').addEventListener('click', e => {
 /* ============================================================
    EXERCISE RENDERER
    ============================================================ */
-function renderExercises(exercises, phase, isMaintenance) {
+function renderExercises(exercises, phase, isMaintenance, weekNum, liftKey, mode) {
   return exercises.map(ex => {
     const hidden = isMaintenance && ex.maintenance === false;
     if (hidden) return '';
@@ -807,13 +864,36 @@ function renderExercises(exercises, phase, isMaintenance) {
       nameHtml += `<div class="phase-badge" style="background:rgba(155,93,229,0.15);color:var(--cond);">Landmine</div>`;
     }
 
+    const wVal = weekNum ? getExWeight(weekNum, liftKey, mode, ex.ord) : '';
+    const dVal = weekNum ? getExDone(weekNum, liftKey, mode, ex.ord) : false;
+    const trackRow = weekNum ? `
+      <div class="ex-track">
+        <div class="ex-weight-wrap">
+          <label>Weight</label>
+          <input class="ex-weight-input" type="number" min="0" step="2.5"
+            placeholder="0" value="${wVal}"
+            oninput="saveExWeight(${weekNum},'${liftKey}','${mode}','${ex.ord}',this.value)">
+          <span class="ex-weight-unit">lbs</span>
+        </div>
+        <div class="ex-done-wrap">
+          <label>
+            <input type="checkbox" ${dVal ? 'checked' : ''}
+              onchange="saveExDone(${weekNum},'${liftKey}','${mode}','${ex.ord}',this.checked)">
+            Done as prescribed
+          </label>
+        </div>
+      </div>` : '';
+
     return `<div class="exercise">
       <div class="ord">${ex.ord}</div>
-      <div>
-        ${nameHtml}
+      <div style="grid-column:2/-1">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:10px">
+          <div>${nameHtml}</div>
+          <div class="sets">${setsLabel}<span class="reps">${ex.reps}</span></div>
+        </div>
         <div class="note">${ex.note}</div>
+        ${trackRow}
       </div>
-      <div class="sets">${setsLabel}<span class="reps">${ex.reps}</span></div>
     </div>`;
   }).join('');
 }
@@ -876,7 +956,7 @@ function liftModal(liftKey, weekNum, phase) {
     ${travelNote}
     ${phaseNote}
     ${isMaintenance ? '<div class="phase-note"><strong>Maintenance Phase</strong> · Compounds only, sets reduced. Keep intensity — quality over volume.</div>' : ''}
-    ${renderExercises(session.exercises, phaseBench, isMaintenance)}
+    ${renderExercises(session.exercises, phaseBench, isMaintenance, weekNum, liftKey, gymMode)}
     <div class="notes-box">
       <label>Session Notes — Week ${weekNum}</label>
       <textarea placeholder="Load, PRs, how it felt…" oninput="saveNotes('${notesKey}', this.value)">${savedNotes}</textarea>
