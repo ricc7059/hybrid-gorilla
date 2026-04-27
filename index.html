@@ -1494,35 +1494,37 @@ function renderNutrition() {
 
   const suppBlocks = [
     {
-      slot: 'morning', label: '☀️ Morning — Daily Foundation',
+      slot: 'pre', label: '⚡ Pre-Workout — ~4:00am weekdays / ~6:00am weekends (fasted)',
       items: [
-        { name:'Creatine Monohydrate', dose:'5g', why:'Timing irrelevant — consistency is the variable. Phosphocreatine stores, power output, lean mass retention.' },
-        { name:'Beta-Alanine', dose:'1.6g', why:'First of two daily doses. Split to manage paresthesia. Buffers lactic acid — extends threshold and VO2 capacity.' },
-        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'First of two daily doses. Complementary pathway to creatine — power output and body composition.' },
+        { name:'L-Citrulline', dose:'6g pure\nor 8g malate', why:'Works well fasted — no food interference. Blood flow, endurance output, reduced soreness. Take 30–45 min before training.' },
+        { name:'L-Leucine', dose:'3g', why:'Most important fasted supplement in the stack. No dietary amino acids in the system — this is the only MPS trigger before training. Non-negotiable for muscle retention.' },
+        { name:'Beta-Alanine', dose:'1.6g', why:'First of two daily doses. Fine fasted. May feel more pronounced tingling on an empty stomach — normal and harmless.' },
+        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'First of two daily doses. Fine fasted. Take alongside the other pre-workout supps.' },
       ]
     },
     {
-      slot: 'pre', label: '⚡ Pre-Workout — 30–45 min before',
+      slot: 'post', label: '🍳 Post-Workout / Break Fast — within 30 min of finishing',
       items: [
-        { name:'L-Citrulline', dose:'6g pure\nor 8g malate', why:'Blood flow, endurance output, reduced soreness. Direct benefit for threshold and interval runs.' },
-        { name:'L-Leucine', dose:'3g', why:'MPS trigger pre-session. Critical in a deficit — signals muscle to build even when calories are low.' },
-        { name:'Beta-Alanine', dose:'1.6g', why:'Second daily dose — stack with pre-workout for convenience.' },
+        { name:'Protein', dose:'50g', why:'Priority #1 — this is the most important meal of the day. You have been fasted through training. Hit 50g protein immediately. Real food strongly preferred; powder if needed.' },
+        { name:'Creatine Monohydrate', dose:'5g', why:'Moved to post-workout for convenience since no morning meal precedes training. Take with your break-fast meal. Timing does not affect efficacy — consistency does.' },
+        { name:'L-Carnitine L-Tartrate', dose:'2g', why:'Take with carbs from your break-fast meal — insulin improves absorption significantly. Reduces muscle damage and supports fat oxidation. Pair with the carb portion of your first meal.' },
+        { name:'Beta-Alanine', dose:'1.6g', why:'Second daily dose. Take with your meal.' },
+        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'Second daily dose. Pair with break-fast meal.' },
       ]
     },
     {
-      slot: 'post', label: '💪 Post-Workout — within 1 hour',
+      slot: 'morning', label: '🌅 Remaining Meals — 2–3 across the day',
       items: [
-        { name:'Protein', dose:'50g', why:'Hits the leucine threshold for MPS. Food first — powder fills gaps when a full meal isn\'t possible.' },
-        { name:'L-Leucine', dose:'3g', why:'Additional dose only if post-workout meal is delayed more than 1 hour. Otherwise the protein covers it.' },
-        { name:'L-Carnitine L-Tartrate', dose:'2g', why:'Take with carbs — insulin improves absorption. Reduces muscle damage, supports fat oxidation. Most valuable on high-volume days.' },
-        { name:'Betaine Anhydrous (TMG)', dose:'1.25g', why:'Second daily dose. Pair with post-workout meal.' },
+        { name:'Protein', dose:'Target 220g total', why:'Distribute remaining protein across lunch, dinner, and any snacks. Break-fast covers ~50g — roughly 170g remaining across the day.' },
+        { name:'Carbs', dose:'325g training / 215g rest', why:'Front-load carbs earlier in the day post-workout. Taper toward evening. Carbs fuel recovery — do not restrict them on training days.' },
+        { name:'Fat', dose:'90g floor', why:'Keep fat low around the break-fast window (post-workout). Distribute the bulk of daily fat across lunch and dinner. Do not go below the 90g floor.' },
       ]
     },
   ];
 
   let html = `
     <div class="nutr-intro">
-      215 lbs · 6'0" · ~14.5% BF · Age 43 · TDEE ~${TDEE.toLocaleString()} cal · Goal: lean performance
+      215 lbs · 6'0" · ~14.5% BF · Age 43 · TDEE ~${TDEE.toLocaleString()} cal · Goal: lean performance · Training: fasted
     </div>
 
     <div class="deficit-banner">
@@ -1537,24 +1539,24 @@ function renderNutrition() {
       ${macroCard('Rest Day (1×, Sun)', restCal, restMacros)}
     </div>
     <div class="nutr-intro">
-      Protein stays identical both days — muscle retention in a deficit requires consistent protein, not cycling it. Carbs drop sharply on rest day since glycogen demand is minimal. Fat floor of ~90g protects testosterone at 43 — don't go below it.
+      Protein stays identical both days. Carbs drop sharply on rest day. Fat floor at 90g protects testosterone at 43 — do not go below it regardless of deficit depth.
     </div>
 
-    <div class="nutr-section-head">Macro Timing</div>
+    <div class="nutr-section-head">Fasted Training Protocol</div>
     <div class="timing-row">
-      <div class="tr-window">Pre-workout · 1–2 hr before</div>
-      <div class="tr-focus">Carb-forward</div>
-      <div class="tr-target">60–80g carbs · 30–40g protein · low fat</div>
+      <div class="tr-window">Weekdays · 4:00am pre / 5:30am post</div>
+      <div class="tr-focus">Supps only before · Break fast immediately after</div>
+      <div class="tr-target">No food before training — not practical at 4:30am start. Supplements only (see stack below). First meal is post-workout break-fast: 50g protein + 60–80g carbs. This is the most important meal of the day.</div>
     </div>
     <div class="timing-row">
-      <div class="tr-window">Post-workout · within 1 hr</div>
-      <div class="tr-focus">Protein + carb</div>
-      <div class="tr-target">50g protein · 60–80g carbs</div>
+      <div class="tr-window">Weekends · Sat/Sun · 6:30–7:00am start</div>
+      <div class="tr-focus">Optional small snack at ~6:00am</div>
+      <div class="tr-target">The later start gives you a window. Optional: small pre-workout snack at ~6:00am — 30–40g carbs, 20g protein, minimal fat (e.g. rice cakes + protein shake). Not mandatory — fasted is fine here too — but the option exists. Post-workout break-fast same as weekdays.</div>
     </div>
     <div class="timing-row">
-      <div class="tr-window">Remaining meals · 2–3 across the day</div>
-      <div class="tr-focus">Balanced</div>
-      <div class="tr-target">Distribute remaining protein and fat evenly. Keep fat away from peri-workout windows.</div>
+      <div class="tr-window">Meals 2–3 · Rest of day</div>
+      <div class="tr-focus">Distribute remaining macros</div>
+      <div class="tr-target">Lunch and dinner carry the remaining ~170g protein, bulk of fat, and remaining carbs. Front-load carbs earlier (lunch) and taper toward the evening. Keep fat low in the immediate post-workout window, then distribute freely across later meals.</div>
     </div>
 
     <div class="nutr-section-head">Supplement Protocol</div>

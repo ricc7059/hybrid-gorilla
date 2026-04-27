@@ -404,50 +404,47 @@ Weekly average: ~2,943 cal/day
 
 **Protein** stays identical both days — muscle retention in a deficit requires consistent daily protein, not cycling. **Carbs** drop sharply on rest day — glycogen demand is minimal without training. **Fat** floor at ~90g (0.42g/lb BW) protects testosterone and hormonal function at 43. Do not go below this floor regardless of deficit depth.
 
+### Fasted Training Context
+
+All weekday training begins at 4:30am. Eating 1–2 hours before training would require a meal at 2–3am — not practical. All weekday sessions are trained fully fasted. Weekend sessions (Saturday long run, Sunday optional) start at 6:30–7:00am, which provides an optional small pre-workout snack window at ~6:00am if desired.
+
 ### Macro Timing
 
 | Window | Focus | Targets |
 |--------|-------|---------|
-| Pre-workout (1–2 hr before) | Carb-forward | 60–80g carbs · 30–40g protein · low fat |
-| Post-workout (within 1 hr) | Protein + carb | 50g protein · 60–80g carbs |
-| Remaining meals (2–3/day) | Balanced | Distribute remaining protein and fat evenly |
+| Weekdays — pre-workout (4:00am) | Supplements only — no food | Fasted training. Supps taken on empty stomach. See protocol below. |
+| Weekdays — post-workout / break fast (5:30–6:00am) | Protein + carb — priority #1 | 50g protein + 60–80g carbs. Most important meal of the day. Break the fast immediately after finishing. |
+| Weekends — optional pre-workout snack (~6:00am) | Small, carb-forward | 30–40g carbs · 20g protein · minimal fat. Optional only — fasted is fine too. |
+| Remaining meals — 2–3 across day | Distribute remaining macros | ~170g protein remaining after break-fast. Front-load carbs at lunch, taper toward evening. Keep fat low around training, distribute freely at later meals. |
 
-Fat is deprioritized peri-workout because it slows gastric emptying, reducing speed of carb and amino acid availability during and after training.
+### Supplement Protocol — 7 Compounds (Fasted-Adjusted)
 
-### Supplement Protocol — 7 Compounds
-
-#### Morning — Daily Foundation
-
-| Supplement | Dose | Rationale |
-|-----------|------|-----------|
-| Creatine Monohydrate | 5g | Timing irrelevant — consistency is the variable. Replenishes phosphocreatine stores, improves power output, supports lean mass retention in a deficit. No loading phase required. |
-| Beta-Alanine | 1.6g (dose 1 of 2) | Increases skeletal muscle carnosine, buffering hydrogen ions at high-intensity efforts. Extends time to fatigue at threshold and VO2max. Paresthesia (tingling) is normal and harmless — split dosing reduces it. Direct benefit for quality run sessions. |
-| Betaine Anhydrous (TMG) | 1.25g (dose 1 of 2) | Complementary pathway to creatine — both improve power output via different mechanisms. Well-studied for strength, power, and body composition. Effective standalone and synergistic with creatine. |
-
-#### Pre-Workout — 30–45 Minutes Before
+#### Pre-Workout — ~4:00am weekdays / ~6:00am weekends (fasted)
 
 | Supplement | Dose | Rationale |
 |-----------|------|-----------|
-| L-Citrulline | 6g pure or 8g malate 2:1 | Precursor to arginine driving nitric oxide production. Increases blood flow, reduces oxygen cost of submaximal exercise, improves endurance output, reduces post-exercise soreness. More bioavailable than arginine supplementation. Direct benefit on threshold and interval sessions. |
-| L-Leucine | 3g | Primary trigger for muscle protein synthesis (MPS). In a caloric deficit, anabolic signaling is blunted — supra-physiological leucine intake compensates. Particularly effective pre-workout when a full protein meal is not practical. |
-| Beta-Alanine | 1.6g (dose 2 of 2) | Second daily dose stacked with pre-workout for compliance and convenience. |
+| L-Citrulline | 6g pure or 8g malate 2:1 | Works well fasted — no food interference. Blood flow, endurance output, reduced soreness. Take 30–45 min before training. |
+| L-Leucine | 3g | Most important fasted supplement in the stack. No dietary amino acids in the system pre-training — this is the only MPS trigger before the session. Non-negotiable for muscle retention in a fasted deficit athlete. |
+| Beta-Alanine | 1.6g (dose 1 of 2) | Fine fasted. May feel more pronounced tingling on an empty stomach — normal and harmless. |
+| Betaine Anhydrous (TMG) | 1.25g (dose 1 of 2) | Fine fasted. Take alongside the other pre-workout supplements. |
 
-#### Post-Workout — Within 1 Hour
+#### Post-Workout / Break Fast — within 30 min of finishing
 
 | Supplement | Dose | Rationale |
 |-----------|------|-----------|
-| Protein | 50g | Hits the leucine threshold for maximal MPS triggering. Food first — this dose fills gaps when a complete protein meal is not immediately available. |
-| L-Leucine | 3g (if meal delayed >1 hr) | Additional dose only when post-workout meal will be delayed. If eating within the hour, the protein dose covers leucine requirements. |
-| L-Carnitine L-Tartrate | 2g | Take with carbs — insulin improves absorption significantly. Best-researched carnitine form for exercise recovery. Reduces exercise-induced muscle damage, supports fat oxidation, accelerates recovery between sessions. Most valuable compound for a 6-day-per-week athlete at 43. |
-| Betaine Anhydrous (TMG) | 1.25g (dose 2 of 2) | Second daily dose paired with post-workout meal. |
+| Protein | 50g | Priority #1. Training fasted means the body has been in a catabolic state through the session. Hit 50g protein immediately post-workout. Real food strongly preferred; powder if a full meal is not possible. |
+| Creatine Monohydrate | 5g | Moved to post-workout for convenience — no morning meal precedes training. Take with break-fast meal. Timing does not affect efficacy; consistency does. |
+| L-Carnitine L-Tartrate | 2g | Take with carbs from break-fast meal — insulin improves absorption significantly. Reduces muscle damage, supports fat oxidation. Pair with the carb portion of the first meal. |
+| Beta-Alanine | 1.6g (dose 2 of 2) | Second daily dose. Take with break-fast meal. |
+| Betaine Anhydrous (TMG) | 1.25g (dose 2 of 2) | Second daily dose. Pair with break-fast meal. |
 
 #### Daily Schedule Summary
 
 | Time | Supplements |
 |------|------------|
-| Morning | Creatine 5g · Beta-Alanine 1.6g · Betaine 1.25g |
-| Pre-workout (30–45 min) | L-Citrulline 6g · L-Leucine 3g · Beta-Alanine 1.6g |
-| Post-workout | Protein 50g · L-Leucine 3g (if meal delayed) · L-Carnitine L-Tartrate 2g · Betaine 1.25g |
+| Pre-workout — 4:00am weekdays / 6:00am weekends | L-Citrulline 6g · L-Leucine 3g · Beta-Alanine 1.6g · Betaine 1.25g |
+| Post-workout / break fast — ~5:30am weekdays / ~8:00am weekends | Protein 50g · Creatine 5g · L-Carnitine L-Tartrate 2g · Beta-Alanine 1.6g · Betaine 1.25g |
+| Remaining meals | Distribute remaining macros across 2–3 meals |
 
 *Evidence-based recommendations from published research and hybrid athlete protocols. Not personalized medical nutrition advice. Consult a physician or registered dietitian before beginning any new supplement regimen, particularly if on medication or managing health conditions.*
 
